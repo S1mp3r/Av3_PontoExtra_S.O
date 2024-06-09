@@ -9,3 +9,5 @@ O código usa os seguintes imports para a funcionalidade:
 # import java.util.List;
 # import java.time.LocalDate;
 # import java.util.Scanner;
+
+# *Caso não saiba qual Classe deve ser iniciada* Utiliza para a correta funcionalidade o arquivo "Main.java"
