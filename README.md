@@ -10,4 +10,4 @@ O código usa os seguintes imports para a funcionalidade:
 # import java.time.LocalDate;
 # import java.util.Scanner;
 
-# *Caso não saiba qual Classe deve ser iniciada* Utiliza para a correta funcionalidade o arquivo "Main.java"
+# *Caso não saiba qual Classe deve ser iniciada* Utilizar o arquivo "Main.java" e clicar em "Run"
