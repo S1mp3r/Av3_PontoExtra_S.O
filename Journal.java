@@ -22,16 +22,16 @@ public class Journal {
         log.add(entry);
     }
 
-    public List<String> getLog() {
-        return log;
-    }
-
     public void getLogSeparate() {
         Integer index = 0;
 
-        for (String historic : log) {
-            System.out.println("Horario -> " + this.dates.get(index) + "   ||||||||   Acao -> "+ historic);
-            index++;
+        if(!log.isEmpty()) {
+            for (String historic : log) {
+                System.out.println("Data -> " + this.dates.get(index) + "   ||||||||   Acao -> "+ historic);
+                index++;
+            }
+        } else {
+            System.out.println("Nenhuma acao foi feita ou registrada no momento.");
         }
     }
 
