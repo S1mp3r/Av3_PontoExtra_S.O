@@ -11,7 +11,6 @@ public class Main {
         FileSystemSimulator fs = new FileSystemSimulator();
 
         Scanner input = new Scanner(System.in);
-        //input.nextLine();
         Boolean leave = false;
         String path;
         String name;
@@ -25,17 +24,19 @@ public class Main {
             System.out.println();
             System.out.println("3) Renomear um Diretorio.");
             System.out.println();
-            System.out.println("4) Criar um arquivo.");
+            System.out.println("4) Listar todos os Diretorios presentes.");
             System.out.println();
-            System.out.println("5) Copiar um arquivo.");
+            System.out.println("5) Criar um arquivo.");
             System.out.println();
-            System.out.println("6) Apagar um arquivo.");
+            System.out.println("6) Copiar um arquivo.");
             System.out.println();
-            System.out.println("7) Renomear um arquivo.");
+            System.out.println("7) Apagar um arquivo.");
             System.out.println();
-            System.out.println("8) Listar arquivos de um Diretorio.");
+            System.out.println("8) Renomear um arquivo.");
             System.out.println();
-            System.out.println("9) Sair");
+            System.out.println("9) Listar arquivos de um Diretorio.");
+            System.out.println();
+            System.out.println("0) Sair");
             System.out.println();
             System.out.println("Para acessar o log de eventos, digite 'log'...");
             System.out.println();
@@ -52,30 +53,24 @@ public class Main {
                     fs.createDirectory("/", name);
                     break;
                 case "2":
-                    System.out.print("Digite o diretorio: ");
-                    path = input.nextLine();
                     System.out.print("Digite o nome do diretorio: ");
                     name = input.nextLine();
                     System.out.println();
-                    fs.deleteDirectory(path, name);
+                    fs.deleteDirectory("/", name);
                     break;
                 case "3":
-                    System.out.print("Digite o diretorio: ");
-                    path = input.nextLine();
                     System.out.print("Digite o nome do diretorio: ");
                     name = input.nextLine();
                     System.out.print("Digite o novo nome do diretorio: ");
                     newName = input.nextLine();
                     System.out.println();
-                    fs.renameDirectory(path, name, newName);
+                    fs.renameDirectory("/", name, newName);
                     break;
                 case "4":
-                    System.out.print("Digite o caminho do arquivo: ");
-                    path = input.nextLine();
-                    System.out.print("Digite o nome do arquivo: ");
-                    name = input.nextLine();
+                    fs.listDirectory("/");
                     System.out.println();
-                    fs.createFile(path, name);
+                    System.out.print("Aperte qualquer tecla para continuar...");
+                    input.nextLine();
                     break;
                 case "5":
                     System.out.print("Digite o caminho do arquivo: ");
@@ -83,7 +78,7 @@ public class Main {
                     System.out.print("Digite o nome do arquivo: ");
                     name = input.nextLine();
                     System.out.println();
-                    fs.copyFile(path, name);
+                    fs.createFile("/" + path, name);
                     break;
                 case "6":
                     System.out.print("Digite o caminho do arquivo: ");
@@ -91,9 +86,17 @@ public class Main {
                     System.out.print("Digite o nome do arquivo: ");
                     name = input.nextLine();
                     System.out.println();
-                    fs.deleteFile(path, name);
+                    fs.copyFile("/" + path, name);
                     break;
                 case "7":
+                    System.out.print("Digite o caminho do arquivo: ");
+                    path = input.nextLine();
+                    System.out.print("Digite o nome do arquivo: ");
+                    name = input.nextLine();
+                    System.out.println();
+                    fs.deleteFile("/" + path, name);
+                    break;
+                case "8":
                     System.out.print("Digite o caminho do arquivo: ");
                     path = input.nextLine();
                     System.out.print("Digite o nome do arquivo: ");
@@ -101,9 +104,9 @@ public class Main {
                     System.out.print("Digite o novo nome do arquivo: ");
                     newName = input.nextLine();
                     System.out.println();
-                    fs.renameFile(path, name, newName);
+                    fs.renameFile("/" + path, name, newName);
                     break;
-                case "8":
+                case "9":
                     System.out.print("Digite o caminho do diretorio: ");
                     path = input.nextLine();
                     fs.listDirectoryContents(path);
@@ -111,7 +114,7 @@ public class Main {
                     System.out.print("Aperte qualquer tecla para continuar...");
                     input.nextLine();
                     break;
-                case "9":
+                case "0":
                     System.out.println("Obrigado por usar nossa aplicacao!");
                     leave = true;
                     break;
