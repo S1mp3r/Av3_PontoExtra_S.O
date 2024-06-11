@@ -57,6 +57,18 @@ public class Directory {
         return null;
     }
 
+    public File getFileByNameSpecialCase(String name) {
+        for (File file : files) {
+            if (file.getName().equals(name)) {
+                String[] nameCopyFile = file.getName().split("\\.");
+
+                final File newFile = new File(nameCopyFile[0] + " - Cópia." + nameCopyFile[1]);
+                return newFile;
+            }
+        }
+        return null;
+    }
+
     public Directory getDirectoryByName(String name) {
         for (Directory dir : subDirectories) {
             if (dir.getName().equals(name)) {
@@ -64,5 +76,13 @@ public class Directory {
             }
         }
         return null;
+    }
+
+    public Boolean containsDirectory(String dirName) {
+        return subDirectories.stream().anyMatch(actualDir -> actualDir.getName().equals(dirName));
+    }
+
+    public Boolean containFile(String fileName) {
+        return files.stream().anyMatch(file -> file.getName().equals(fileName));
     }
 }
