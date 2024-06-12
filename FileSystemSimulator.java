@@ -12,12 +12,15 @@ public class FileSystemSimulator {
         if (dir != null) {
             if (dir.containFile(name)) {
                 System.out.println("Erro! Arquivo com nome Dúplicado!");
-            } else {
+            }
+            if(!dir.containsDirectory(name)) {
                 File file = new File(name);
                 dir.addFile(file);
                 journal.addEntry("Created file: " + name + " at " + path);
             }
         }
+        if(dir == null)
+            System.out.println("Erro! Diretorio inexistente!");
     }
 
     public void createDirectory(String path, String name) {
@@ -25,10 +28,11 @@ public class FileSystemSimulator {
         if (dir != null) {
             if (dir.containsDirectory(name)) {
                 System.out.println("Erro! Diretorio ja existe!");
-            } else {
+            }
+            if(!dir.containsDirectory(name)) {
                 Directory newDir = new Directory(name);
                 dir.addDirectory(newDir);
-                journal.addEntry("Created directory: " + name + " at " + path);
+                journal.addEntry("Created directory: " + name + " at " + root);
             }
         }
     }
@@ -40,10 +44,13 @@ public class FileSystemSimulator {
             if (file != null) {
                 dir.removeFile(file);
                 journal.addEntry("Deleted file: " + name + " from " + path);
-            } else {
+            }
+            if (file == null) {
                 System.out.println("Erro! Arquivo inexistente!");
             }
         }
+        if(dir == null)
+        System.out.println("Erro! Diretorio inexistente!");
     }
 
     public void deleteDirectory(String path, String name) {
@@ -57,6 +64,8 @@ public class FileSystemSimulator {
                 System.out.println("Erro! Diretorio inexistente!");
             }
         }
+        if(dir == null)
+            System.out.println("Erro! Diretorio não existente!");
     }
 
     public void renameFile(String path, String oldName, String newName) {
@@ -70,6 +79,8 @@ public class FileSystemSimulator {
                 System.out.println("Erro! Arquivo inexistente!");
             }
         }
+        if(dir == null)
+            System.out.println("Erro! Diretorio não existente!");
     }
 
     public void renameDirectory(String path, String oldName, String newName) {
@@ -83,6 +94,41 @@ public class FileSystemSimulator {
                 System.out.println("Erro! Diretorio inexistente!");
             }
         }
+        if(dir == null)
+            System.out.println("Erro! Diretorio inexistente");
+    }
+
+    public void copyFile(String path, String newPath, String fileName) {
+        Directory dir = navigateToDirectory(path);
+        Directory newDir = navigateToDirectory(newPath);
+        if (dir != null && newDir != null) {
+            if (dir == newDir) {
+                if(dir.containFile(fileName)) {
+                    if(dir.getFileByName(fileName).getQtt() == 0) {
+                        dir.addFile(dir.getFileByNameSpecialCase(fileName));
+                    } else {
+                        dir.addFile(dir.getFileByNameSpecialCaseDuplicated(fileName));
+                    }
+                    dir.getFileByName(fileName).incrementalQtt();
+                    journal.addEntry("Coping file: " + fileName + " at " + path);
+                } else {
+                    System.out.println("Erro! Arquivo inexistente!");
+               }
+            }
+            if(dir != newDir){
+                if(dir.containFile(fileName)) {
+                    if(dir.getFileByName(fileName).getQtt() == 0) {
+                        newDir.addFile(dir.getFileByNameSpecialCase(fileName));
+                    } else {
+                        newDir.addFile(dir.getFileByNameSpecialCaseDuplicated(fileName));
+                    }
+                    dir.getFileByName(fileName).incrementalQtt();
+                    journal.addEntry("Coping file: " + fileName + " at " + newPath);
+                }
+            }
+        }
+        if (dir == null || newDir == null) 
+            System.out.println("Erro! Diretorio inexistente");
     }
 
     public void listDirectoryContents(String path) {
@@ -95,9 +141,9 @@ public class FileSystemSimulator {
             for (Directory subDir : dir.getSubDirectories()) {
                 System.out.println("Directory: " + subDir.getName());
             }
-        } else {
-            System.out.println("Erro! Arquivo inexistente!");
         }
+        if (dir == null)
+            System.out.println("Erro! Arquivo inexistente!");
     }
 
     public void listDirectory(String path) {
@@ -107,26 +153,9 @@ public class FileSystemSimulator {
             for (Directory subDir : dir.getSubDirectories()) {
                 System.out.println("Directory: " + subDir.getName());
             }
-        } else {
+        }
+        if (dir == null)
             System.out.println("Erro! Diretorio inexistente!");
-        }
-    }
-
-    public void copyFile(String path, String fileName) {
-        Directory dir = navigateToDirectory(path);
-        if (dir != null) {
-            if(dir.containFile(fileName)) {
-                if(dir.getFileByName(fileName).getQtt() == 0) {
-                    dir.addFile(dir.getFileByNameSpecialCase(fileName));
-                } else {
-                    dir.addFile(dir.getFileByNameSpecialCaseDuplicated(fileName));
-                }
-                dir.getFileByName(fileName).incrementalQtt();
-            }
-            journal.addEntry("Coping file: " + fileName + " at " + path);
-        } else {
-            System.out.println("Erro! Arquivo inexistente!");
-        }
     }
 
     public void acessJournal() {
