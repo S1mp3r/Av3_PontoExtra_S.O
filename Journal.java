@@ -4,11 +4,11 @@ import java.util.*;
 // Descomentar linha 6 e 7.
 // Comentar linha 1 e 2.
 // import java.util.List;
-// import java.time.LocalDate;
+// import java.time.LocalDateTime;
 
 public class Journal {
     private List<String> log;
-    private List<LocalDate> dates;
+    private List<LocalDateTime> dates;
 
     public Journal() {
         this.log = new ArrayList<>();
@@ -16,9 +16,15 @@ public class Journal {
     }
 
     public void addEntry(String entry) {
-        final LocalDate date = LocalDate.now();
-
-        dates.add(date);
+        final LocalDateTime datas = LocalDateTime.of(
+            LocalDateTime.now().getYear(),
+            LocalDateTime.now().getMonth(),
+            LocalDateTime.now().getDayOfMonth(),
+            LocalDateTime.now().getHour(),
+            LocalDateTime.now().getMinute(),
+            LocalDateTime.now().getSecond()
+        );
+        dates.add(datas);
         log.add(entry);
     }
 
@@ -30,9 +36,9 @@ public class Journal {
                 System.out.println("Data -> " + this.dates.get(index) + "   ||||||||   Acao -> "+ historic);
                 index++;
             }
-        } else {
-            System.out.println("Nenhuma acao foi feita ou registrada no momento.");
         }
+        if(log.isEmpty())
+            System.out.println("Nenhuma acao foi feita ou registrada no momento.");
     }
 
     public void clearLog() {
