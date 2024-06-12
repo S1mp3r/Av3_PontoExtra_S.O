@@ -13,6 +13,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Boolean leave = false;
         String path;
+        String newPath;
         String name;
         String newName;
 
@@ -85,8 +86,10 @@ public class Main {
                     path = input.nextLine();
                     System.out.print("Digite o nome do arquivo: ");
                     name = input.nextLine();
+                    System.out.print("Digite o caminho que o arquivo sera guardado: ");
+                    newPath = input.nextLine();
                     System.out.println();
-                    fs.copyFile("/" + path, name);
+                    fs.copyFile("/" + path, "/" + newPath, name);
                     break;
                 case "7":
                     System.out.print("Digite o caminho do arquivo: ");
