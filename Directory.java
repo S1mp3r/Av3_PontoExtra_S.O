@@ -33,6 +33,7 @@ public class Directory {
     }
 
     public void addFile(File file) {
+        file.incrementalQtt();
         files.add(file);
     }
 
@@ -62,7 +63,19 @@ public class Directory {
             if (file.getName().equals(name)) {
                 String[] nameCopyFile = file.getName().split("\\.");
 
-                final File newFile = new File(nameCopyFile[0] + " - Cópia." + nameCopyFile[1]);
+                final File newFile = new File(nameCopyFile[0] + " - Copia." + nameCopyFile[1]);
+                return newFile;
+            }
+        }
+        return null;
+    }
+
+    public File getFileByNameSpecialCaseDuplicated(String name) {
+        for (File file : files) {
+            if (file.getName().equals(name)) {
+                String[] nameCopyFile = file.getName().split("\\.");
+
+                final File newFile = new File(nameCopyFile[0] + " - Copia (" + file.getQtt() +")." + nameCopyFile[1]);
                 return newFile;
             }
         }
