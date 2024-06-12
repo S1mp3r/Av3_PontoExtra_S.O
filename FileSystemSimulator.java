@@ -115,7 +115,14 @@ public class FileSystemSimulator {
     public void copyFile(String path, String fileName) {
         Directory dir = navigateToDirectory(path);
         if (dir != null) {
-            dir.addFile(dir.getFileByNameSpecialCase(fileName));
+            if(dir.containFile(fileName)) {
+                if(dir.getFileByName(fileName).getQtt() == 0) {
+                    dir.addFile(dir.getFileByNameSpecialCase(fileName));
+                } else {
+                    dir.addFile(dir.getFileByNameSpecialCaseDuplicated(fileName));
+                }
+                dir.getFileByName(fileName).incrementalQtt();
+            }
             journal.addEntry("Coping file: " + fileName + " at " + path);
         } else {
             System.out.println("Erro! Arquivo inexistente!");
